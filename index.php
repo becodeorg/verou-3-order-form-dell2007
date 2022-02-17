@@ -52,6 +52,9 @@ $email = $street = $numb = $city = $zip = "";
 function validate()
 {
     $invalidFields = [];
+    if (empty($_POST['name'])) {
+        array_push($invalidFields, 'name');
+    }
     if (empty($_POST['email'])) {
         array_push($invalidFields, 'email');
     }
@@ -78,49 +81,43 @@ function handleForm($products)
     // TODO: form related tasks (step 1)
 
     // Validation (step 2)
+
+
     $invalidFields = validate();
     if (isset($_POST['submit'])) {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $street = $_POST['street'];
+        $number = $_POST['streetNumber'];
+        $city = $_POST['city'];
+        $zipCode = $_POST['zipCode'];
+        $product = $_POST['products'];
+
         if (!empty($invalidFields)) {
+
             foreach ($invalidFields as $data) {
                 if ($data === 'products') {
                     echo
                     "<div class='alert alert-danger' role='alert'>
-                Please select one of the options above
+                Please select one of the options above.
                 </div>";
                 } else {
                     echo
                     "<div class='alert alert-danger' role='alert'>
-                Your $data is required
+                Your $data is required.
                 </div>";
                 }
             }
         } else {
+            echo
+            "<div class='alert alert-success' role='alert'>
+                Thanks $name for your order! <br>
+                We would like to confirm your personal info and order: <br>
+                Email: $email <br>
+                Address: $street $number, $zipCode $city <br>
+                Service: $product
+                <di>";
         }
-        //     if (!empty($_POST['email'])) {
-        //         "Email is required";
-        //     } else {
-        //         $GLOBAL['email'] = $_POST['email'];
-        //     }
-        //     if (!empty($_POST['street'])) {
-        //         "Street is required";
-        //     } else {
-        //         $street = $_POST['street'];
-        //     }
-        //     if (!empty($_POST['streetNumber'])) {
-        //         "Number is required";
-        //     } else {
-        //         $streetNumber = $_POST['streetNumber'];
-        //     }
-        //     if (!empty($_POST['city'])) {
-        //         "City is required";
-        //     } else {
-        //         $city = $_POST['city'];
-        //     }
-        //     if (!empty($_POST['zipCode'])) {
-        //         "Zip code is required";
-        //     } else {
-        //         $zipCode = $_POST['zipCode'];
-        //     }
     }
 }
 

@@ -32,11 +32,13 @@
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="form-row">
                 <div class="form-group col-md-6">
+                    <label for="name">Full name:</label>
+                    <input type="name" id="name" name="name" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
                     <label for="email">E-mail:</label>
                     <input type="email" id="email" name="email" class="form-control" />
-                    <!-- <span class="error">* <?php echo $nameErr; ?></span> -->
                 </div>
-                <div></div>
             </div>
 
             <fieldset>
@@ -70,7 +72,8 @@
                     <label>
                         <?php // <?= is equal to <?php echo 
                         ?>
-                        <input type="checkbox" value="1" name="products[<?php echo $i ?>]" /> <?php echo $product['name'] ?> -
+                        <input type="checkbox" value="1" name="products[<?php echo $i ?>]" />
+                        <?php echo $product['name'] ?> -
                         &euro; <?= number_format($product['price'], 2) ?></label><br />
                 <?php endforeach; ?>
             </fieldset>
