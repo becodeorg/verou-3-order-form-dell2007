@@ -29,11 +29,12 @@
         </ul>
     </nav>
     */ ?>
-        <form method="post">
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="email">E-mail:</label>
                     <input type="email" id="email" name="email" class="form-control" />
+                    <!-- <span class="error">* <?php echo $nameErr; ?></span> -->
                 </div>
                 <div></div>
             </div>
@@ -47,8 +48,8 @@
                         <input type="text" name="street" id="street" class="form-control">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="streetnumber">Street number:</label>
-                        <input type="text" id="streetnumber" name="streetnumber" class="form-control">
+                        <label for="streetNumber">Street number:</label>
+                        <input type="text" id="streetNumber" name="streetNumber" class="form-control">
                     </div>
                 </div>
                 <div class="form-row">
@@ -57,14 +58,14 @@
                         <input type="text" id="city" name="city" class="form-control">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="zipcode">Zipcode</label>
-                        <input type="text" id="zipcode" name="zipcode" class="form-control">
+                        <label for="zipCode">Zip Code</label>
+                        <input type="text" id="zipCode" name="zipCode" class="form-control">
                     </div>
                 </div>
             </fieldset>
 
             <fieldset>
-                <legend>Products</legend>
+                <legend>Services</legend>
                 <?php foreach ($products as $i => $product) : ?>
                     <label>
                         <?php // <?= is equal to <?php echo 
@@ -77,7 +78,11 @@
             <button type="submit" class="btn btn-primary">Order!</button>
         </form>
 
-        <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>
+        <?php
+        echo handleForm($products);
+        ?>
+
+        <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in fake services.</footer>
     </div>
 
     <style>
