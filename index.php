@@ -59,13 +59,16 @@ function validate()
         array_push($invalidFields, 'street');
     }
     if (empty($_POST['streetNumber'])) {
-        array_push($invalidFields, 'streetNumber');
+        array_push($invalidFields, 'street number');
     }
     if (empty($_POST['city'])) {
         array_push($invalidFields, 'city');
     }
     if (empty($_POST['zipCode'])) {
-        array_push($invalidFields, 'zipCode');
+        array_push($invalidFields, 'zip code');
+    }
+    if (empty($_POST['products'])) {
+        array_push($invalidFields, 'products');
     }
     return $invalidFields;
 }
@@ -76,7 +79,23 @@ function handleForm($products)
 
     // Validation (step 2)
     $invalidFields = validate();
-    if (!empty($invalidFields)) {
+    if (isset($_POST['submit'])) {
+        if (!empty($invalidFields)) {
+            foreach ($invalidFields as $data) {
+                if ($data === 'products') {
+                    echo
+                    "<div class='alert alert-danger' role='alert'>
+                Please select one of the options above
+                </div>";
+                } else {
+                    echo
+                    "<div class='alert alert-danger' role='alert'>
+                Your $data is required
+                </div>";
+                }
+            }
+        } else {
+        }
         //     if (!empty($_POST['email'])) {
         //         "Email is required";
         //     } else {
@@ -104,6 +123,7 @@ function handleForm($products)
         //     }
     }
 }
+
 
 // TODO: replace this if by an actual check
 $formSubmitted = false;
