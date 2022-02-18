@@ -41,13 +41,7 @@ $products = [
     ['name' => 'Funerary crier actor', 'price' => 300],
 ];
 
-// if (isset($_POST['submit'])) {
-//     foreach ($products['price'];
-// }
 $totalValue = 0;
-
-// $emailERR = $streetERR = $numbErr = $cityErr = $zipERR = "";
-$email = $street = $numb = $city = $zip = "";
 
 function validate()
 {
@@ -92,6 +86,7 @@ function handleForm($products)
         $city = $_POST['city'];
         $zipCode = $_POST['zipCode'];
         $product = $_POST['products'];
+        var_dump($product);
 
         if (!empty($invalidFields)) {
 
@@ -108,6 +103,11 @@ function handleForm($products)
                 </div>";
                 }
             }
+        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo
+            "<div class='alert alert-danger' role='alert'>
+        Invalid $email format.
+        </div>";
         } else {
             echo
             "<div class='alert alert-success' role='alert'>
