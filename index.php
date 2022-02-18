@@ -41,7 +41,7 @@ $products = [
     ['name' => 'Funerary crier actor', 'price' => 300],
 ];
 
-$totalValue = 0;
+$totalValue = totalAmount($products);
 
 function validate()
 {
@@ -70,6 +70,14 @@ function validate()
     return $invalidFields;
 }
 
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
 function handleForm($products)
 {
     // TODO: form related tasks (step 1)
@@ -80,13 +88,11 @@ function handleForm($products)
     $invalidFields = validate();
     if (isset($_POST['submit'])) {
         $name = $_POST['name'];
-        $email = $_POST['email'];
+        $email = test_input($_POST['email']);
         $street = $_POST['street'];
         $number = $_POST['streetNumber'];
         $city = $_POST['city'];
         $zipCode = $_POST['zipCode'];
-        $product = $_POST['products'];
-        var_dump($product);
 
         if (!empty($invalidFields)) {
 
@@ -115,10 +121,32 @@ function handleForm($products)
                 We would like to confirm your personal info and order: <br>
                 Email: $email <br>
                 Address: $street $number, $zipCode $city <br>
-                Service: $product
-                <di>";
+                Service: <br>";
+            totalProducts($products);
+            echo "</div>";
         }
     }
+}
+
+function totalProducts($products)
+{
+    // global $products;
+    foreach ($_POST['products'] as $i => $service) {
+        if ($service === "1") {
+            echo "- " . $products[$i]['name'] . "<br>";
+        }
+    }
+}
+
+function totalAmount($products)
+{
+    $totalPrice = 0;
+    if (!empty($_POST['products'])) {
+        foreach ($_POST['products'] as $i) {
+            $totalPrice += $products[$i]['price'];
+        }
+    }
+    return $totalPrice;
 }
 
 
