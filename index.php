@@ -30,7 +30,7 @@ function whatIsHappening()
     // echo '<h2>$_SESSION</h2>';
     // var_dump($_SESSION);
 }
-whatIsHappening();
+// whatIsHappening();
 
 // TODO: provide some products (you may overwrite the example)
 $products = [
@@ -108,6 +108,12 @@ function handleForm($products)
                 Your $data is required.
                 </div>";
                 }
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    echo
+                    "<div class='alert alert-danger' role='alert'>
+                Invalid $email format.
+                </div>";
+                }
             }
         } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             echo
@@ -130,11 +136,8 @@ function handleForm($products)
 
 function totalProducts($products)
 {
-    // global $products;
     foreach ($_POST['products'] as $i => $service) {
-        if ($service === "1") {
-            echo "- " . $products[$i]['name'] . "<br>";
-        }
+        echo "- " . $products[$i]['name'] . "<br>";
     }
 }
 
@@ -142,7 +145,7 @@ function totalAmount($products)
 {
     $totalPrice = 0;
     if (!empty($_POST['products'])) {
-        foreach ($_POST['products'] as $i) {
+        foreach ($_POST['products'] as $i => $service) {
             $totalPrice += $products[$i]['price'];
         }
     }
