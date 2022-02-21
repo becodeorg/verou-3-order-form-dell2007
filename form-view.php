@@ -38,25 +38,37 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="name">Full name:</label>
-                    <input type="name" id="name" name="name" class="form-control" value="<?php echo isset($_POST["name"]) ? $_POST["name"] : ''; ?>">
+                    <input type="name" id="name" name="name" class="form-control" value="
+                    <?php
+                    if (isset($_SESSION["customer"])) {
+                        echo $_SESSION["customer"];
+                    } else {
+                        echo isset($_POST["name"]) ? $_POST["name"] : '';
+                    }
+                    ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="email">E-mail:</label>
                     <input type="text" id="email" name="email" class="form-control" value="
                     <?php
-                    echo isset($_POST["email"]) ? $_POST["email"] : ''; ?>" />
+                    if (isset($_SESSION["email"])) {
+                        echo $_SESSION["email"];
+                    } else {
+                        echo isset($_POST["email"]) ? $_POST["email"] : '';
+                    }
+                    ?>" />
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="text">I am:</label>
+                    <label for="gender">I am:</label>
                     <input type="radio" name="gender">Male
                     <input type="radio" name="gender">Female
                     <input type="radio" name="gender">Unicorn
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="text">I would like:</label>
-                    <input type="radio" name="gender">Female
-                    <input type="radio" name="gender">Male
-                    <input type="radio" name="gender">Fairy
+                    <label for="genderChosen">I would like:</label>
+                    <input type="radio" name="genderChosen">Female
+                    <input type="radio" name="genderChosen">Male
+                    <input type="radio" name="genderChosen">Fairy
                 </div>
             </div>
 

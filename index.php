@@ -11,6 +11,11 @@ error_reporting(E_ALL);
 
 // We are going to use session variables so we need to enable sessions
 session_start();
+if (!empty($_POST)) {
+    $_SESSION['customer'] = $_POST['name'];
+    $_SESSION['email'] = $_POST['email'];
+    print_r($_SESSION);
+}
 
 // Use this function when you need to need an overview of these variables
 function pre_r($array)
@@ -38,7 +43,7 @@ $products = [
     ['name' => 'Wedding companion', 'price' => 100],
     ['name' => 'Bf/Gf to impress friends', 'price' => 150],
     ['name' => 'Bf/Gf to impress family', 'price' => 200],
-    ['name' => 'Funerary crier actor', 'price' => 300],
+    ['name' => 'Spouse actor', 'price' => 300],
 ];
 
 $totalValue = totalAmount($products);
@@ -51,6 +56,12 @@ function validate()
     }
     if (empty($_POST['email'])) {
         array_push($invalidFields, 'email');
+    }
+    if (empty($_POST['gender'])) {
+        array_push($invalidFields, 'gender');
+    }
+    if (empty($_POST['genderChosen'])) {
+        array_push($invalidFields, 'gender chosen');
     }
     if (empty($_POST['street'])) {
         array_push($invalidFields, 'street');
@@ -89,6 +100,8 @@ function handleForm($products)
     if (isset($_POST['submit'])) {
         $name = $_POST['name'];
         $email = test_input($_POST['email']);
+        $gender = $_POST['gender'];
+        $genderChosen = $_POST['genderChosen'];
         $street = $_POST['street'];
         $number = $_POST['streetNumber'];
         $city = $_POST['city'];
@@ -121,13 +134,20 @@ function handleForm($products)
         Invalid $email format.
         </div>";
         } else {
+            // foreach ($_POST as $i => $field) {
+            //     pre_r($_POST);
+            //     if (is_array($field)) {
+            //         continue;
+            //     } else {));
+            //     }
+            // }
             echo
-            "<div class='alert alert-success' role='alert'>
-                Thanks $name for your order! <br>
-                We would like to confirm your personal info and order: <br>
-                Email: $email <br>
-                Address: $street $number, $zipCode $city <br>
-                Service: <br>";
+            "<div class='alert alert-success' role='alert' style='text-align: center'>
+                Thanks <b>$name</b> for trusting in us! <br>
+                We would like to confirm your personal info as follow: <br>
+                <b>Email:</b> $email <br>
+                <b>Address:</b> $street $number, $zipCode $city <br>
+                <b>Your order:</b> <br>";
             totalProducts($products);
             echo "</div>";
         }
